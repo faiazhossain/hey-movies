@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #f5f5f5;
+}
+
+* {
+  font-family: "Tilt Neon", cursive;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+span {
+  color: rgb(69, 69, 69);
+}
