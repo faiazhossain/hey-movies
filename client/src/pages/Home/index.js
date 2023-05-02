@@ -1,7 +1,30 @@
 import React from "react";
-
-function Home() {
-  return <div>Home</div>;
-}
-
+import { Carousel } from "antd";
+import Navbar from "../../components/Navbar";
+const contentStyle = {
+  height: "160px",
+  color: "#fff",
+  lineHeight: "160px",
+  textAlign: "center",
+  background: "#364d79",
+};
+const Home = () => (
+  <div style={{ height: "100vh", background: "#14fc12" }}>
+    <Navbar></Navbar>
+    <Carousel autoplay>
+      <div>
+        <h3 style={contentStyle}>1</h3>
+      </div>
+      <div>
+        <h3 style={contentStyle}>2</h3>
+      </div>
+      <div>
+        <h3 style={contentStyle}>3</h3>
+      </div>
+      <div>
+        <h3 style={contentStyle}>4</h3>
+      </div>
+    </Carousel>
+  </div>
+);
 export default Home;
