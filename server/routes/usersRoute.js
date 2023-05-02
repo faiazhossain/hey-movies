@@ -1,6 +1,9 @@
 const router = require("express").Router();
+// NEED THE USER MODEL AS WE ARE GOING TO USE THE USER
 const User = require("../models/userModel");
+// WE ARE NOT GOING TO STORE THE PASSWORD DIRECTLY WE WILL HASH IT
 const bcrypt = require("bcryptjs");
+
 const jwt = require("jsonwebtoken");
 
 // register a new user
@@ -13,12 +16,12 @@ router.post("/register", async (req, res) => {
         message: "User already exists",
       });
     }
-    // has the password
+    // hash the password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
     req.body.password = hashedPassword;
 
-    //
+    // save the user
     const newUser = new User(req.body);
     await newUser.save();
     res.send({ success: true, message: "User created successfully" });
