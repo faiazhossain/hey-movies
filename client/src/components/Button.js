@@ -1,8 +1,9 @@
 import React from "react";
 
-function Button({ title, onclick, variant, disabled, fullwidth, type }) {
+function Button({ title, onClick, variant, disabled, fullWidth, type }) {
   let className = "bg-primary p-1 text-white";
-  if (fullwidth) {
+
+  if (fullWidth) {
     className += " w-full";
   }
   if (variant === "outlined") {
@@ -13,7 +14,12 @@ function Button({ title, onclick, variant, disabled, fullwidth, type }) {
   }
 
   return (
-    <button className={className} type={type}>
+    <button
+      className={className}
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {title}
     </button>
   );

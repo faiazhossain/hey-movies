@@ -1,7 +1,6 @@
 .card {
   background-color: white;
   border: 1px solid #b1b1b1;
-  border-radius: 10px;
 }
 
 .w-400 {
@@ -56,9 +55,10 @@ thead th {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #b1b1b1;
+  border : 1px solid #b1b1b1;
   cursor: pointer;
 }
+
 
 .selected-seat {
   background-color: #118838;

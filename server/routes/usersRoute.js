@@ -1,15 +1,13 @@
 const router = require("express").Router();
-// NEED THE USER MODEL AS WE ARE GOING TO USE THE USER
 const User = require("../models/userModel");
-// WE ARE NOT GOING TO STORE THE PASSWORD DIRECTLY WE WILL HASH IT
 const bcrypt = require("bcryptjs");
-
 const jwt = require("jsonwebtoken");
-const authMiddleware = require("../authMiddlewares/authMiddleware");
+const authMiddleware = require("../middlewares/authMiddleware");
 
 // register a new user
 router.post("/register", async (req, res) => {
   try {
+    // check if user already exists
     const userExists = await User.findOne({ email: req.body.email });
     if (userExists) {
       return res.send({
@@ -17,6 +15,7 @@ router.post("/register", async (req, res) => {
         message: "User already exists",
       });
     }
+
     // hash the password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
@@ -25,7 +24,8 @@ router.post("/register", async (req, res) => {
     // save the user
     const newUser = new User(req.body);
     await newUser.save();
-    res.send({ success: true, message: "User created successfully" });
+
+    res.send({ success: true, message: "Registration Successfull , Please login" });
   } catch (error) {
     res.send({
       success: false,
@@ -33,28 +33,32 @@ router.post("/register", async (req, res) => {
     });
   }
 });
+
 // login a user
 router.post("/login", async (req, res) => {
   try {
     // check if user exists
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      res.send({
+      return res.send({
         success: false,
         message: "User does not exist",
       });
     }
-    // check if the password is correct or not
+
+    // check if password is correct
     const validPassword = await bcrypt.compare(
       req.body.password,
       user.password
     );
+
     if (!validPassword) {
       return res.send({
         success: false,
         message: "Invalid password",
       });
     }
+
     // create and assign a token
     const token = jwt.sign({ userId: user._id }, process.env.jwt_secret, {
       expiresIn: "1d",
@@ -62,7 +66,7 @@ router.post("/login", async (req, res) => {
 
     res.send({
       success: true,
-      message: "user logged in successfully",
+      message: "User logged in successfully",
       data: token,
     });
   } catch (error) {
@@ -72,8 +76,9 @@ router.post("/login", async (req, res) => {
     });
   }
 });
+
 // get user details by id
-router.get("get-current-user", authMiddleware, async (req, res) => {
+router.get("/get-current-user", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.body.userId).select("-password");
     res.send({
@@ -88,4 +93,5 @@ router.get("get-current-user", authMiddleware, async (req, res) => {
     });
   }
 });
+
 module.exports = router;
