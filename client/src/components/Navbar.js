@@ -7,9 +7,9 @@ const Navbar = () => (
     <Menu
       mode="horizontal"
       items={[
-        { label: "Home", key: "home" },
-        { label: "Login", key: "login" },
-        { label: "Register", key: "register" },
+        { label: "Home", key: "home"},
+        { label: "Login", key: "login"},
+        { label: "Register", key: "register"},
       ]}
     ></Menu>
   </Header>

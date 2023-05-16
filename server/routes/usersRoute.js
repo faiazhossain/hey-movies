@@ -5,6 +5,7 @@ const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 
 const jwt = require("jsonwebtoken");
+const authMiddleware = require("../authMiddlewares/authMiddleware");
 
 // register a new user
 router.post("/register", async (req, res) => {
@@ -63,6 +64,22 @@ router.post("/login", async (req, res) => {
       success: true,
       message: "user logged in successfully",
       data: token,
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+// get user details by id
+router.get("get-current-user", authMiddleware, async (req, res) => {
+  try {
+    const user = await User.findById(req.body.userId).select("-password");
+    res.send({
+      success: true,
+      message: "User details fetched successfully",
+      data: user,
     });
   } catch (error) {
     res.send({
