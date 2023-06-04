@@ -161,7 +161,9 @@ function BookShow() {
           <div className="mt-2 flex justify-center gap-2 items-center flex-col">
             <div className="flex justify-center">
               <div className="flex uppercase card p-2 gap-3">
-                <h1 className="text-sm"><b>Selected Seats</b> : {selectedSeats.join(" , ")}</h1>
+                <h1 className="text-sm">
+                  <b>Selected Seats</b> : {selectedSeats.join(" , ")}
+                </h1>
 
                 <h1 className="text-sm">
                   <b>Total Price</b> : {selectedSeats.length * show.ticketPrice}
@@ -172,7 +174,7 @@ function BookShow() {
               token={onToken}
               amount={selectedSeats.length * show.ticketPrice * 100}
               billingAddress
-              stripeKey="pk_test_51IYnC0SIR2AbPxU0TMStZwFUoaDZle9yXVygpVIzg36LdpO8aSG8B9j2C0AikiQw2YyCI8n4faFYQI5uG3Nk5EGQ00lCfjXYvZ"
+              stripeKey="pk_test_51NAaSlA43cjEygaDoeIHin8tHlabuX3ZkvjcwU5wOVtJ3IVy8Fq0OpUtgV8a6NOM3ccUOdO2SzFdC0PtSty7bLLh00KIvwUxZi"
             >
               <Button title="Book Now" />
             </StripeCheckout>
